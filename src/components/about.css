@@ -1,0 +1,13 @@
+
+.about{
+    padding: 3rem;
+    background-color: #f1f4f5;
+}
+.about button:hover{
+    color:red;
+    background-color: grey;
+}
+
+.about h1,h6{
+    color: rgb(8,92,89);
+}
