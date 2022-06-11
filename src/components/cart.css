@@ -11,3 +11,16 @@
 .cart h3{
     text-align: center;
 }
+
+.cart .parent{
+    display: flex;
+
+}
+
+.cart .products{
+    flex: 2;
+}
+
+.cart .total-panel{
+    flex: 1;
+}

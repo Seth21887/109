@@ -8,13 +8,38 @@ const GlobalStoreProvider = (props) => {
     const addProdToCart = (prod) => {
         console.log("Global add prod", prod);
 
+        //for loop to travel cart: get every item -> compare the item_id with prod_id, if they match, increase the quantity on item
+
         let copy = [...cart];
-        copy.push(prod);
+        let found = false;
+        for(let i=0; i<copy.length; i++){
+            let item = copy[i];
+
+            if(item._id == prod._id){
+                found = true;
+                // item.quantity == item.quantity + prod.quantity;
+                item.quantity += prod.quantity;
+            }
+        }
+        if(!found){
+            copy.push(prod);
+        }
         setCart(copy);
     };
 
-    const removeProdFromCart = () => {
+    const removeProdFromCart = (_id) => {
         console.log("Global remove prod");
+
+        let copy = [...cart];
+        
+        for(let i=0; i<copy.length;i++){
+            if(copy[i]._id === _id){
+                copy.splice(i, 1); //this means start at index i, and remove only 1 object.
+            }
+        }
+
+
+        setCart(copy);
     }
     
     return(

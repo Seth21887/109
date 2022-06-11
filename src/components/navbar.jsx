@@ -9,6 +9,18 @@ import StoreContext from "../context/storeContext";
 function Navbar(){ //custom components will start with a capital letter and return something
   let cart = useContext(StoreContext).cart;
 
+  const getNumItems = () => {
+    let total = 0;
+    for(let i=0;i<cart.length;i++){
+      let prod = cart[i];
+      total += prod.quantity;
+
+    }
+
+    return total;
+
+  };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
   <div className="container-fluid">
@@ -36,7 +48,7 @@ function Navbar(){ //custom components will start with a capital letter and retu
       </ul>
       <form className="d-flex">
         <Link className="btn btn-outline-dark" to="/cart">
-          {cart.length} View Cart
+          {getNumItems()} View Cart
           </Link>
       </form>
     </div>

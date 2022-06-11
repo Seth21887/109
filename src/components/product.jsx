@@ -41,7 +41,7 @@ const Product = (props) => {
         <img className="productImage" src={'/img/' + props.data.image} alt="productImage"></img>
         <h2>{props.data.title}</h2>
         <div className="prices">
-            <label className="price">Price: ${props.data.price}</label>
+            <label className="price">Price: ${props.data.price.toFixed(2)}</label>
             <label className="total">Total: {getTotal()}</label>
         </div>
         <div className="controls">
