@@ -1,5 +1,7 @@
+import DataService from '../services/dataService';
+
 import './admin.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 const Admin = () => {
@@ -53,6 +55,16 @@ const Admin = () => {
         //To Do: send the coupon to service --> back end.
 
     };
+
+    const loadCoupons = async () => {
+        let service = new DataService();
+        let data = await service.getCoupons();
+        setAllCoupons(data);
+    };
+
+    useEffect(() => {
+        loadCoupons();
+    }, []);
     
     return (
         <div className="admin-page">

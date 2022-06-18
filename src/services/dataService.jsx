@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 var catalog = [
     {
         _id: "1",
@@ -93,11 +95,25 @@ var catalog = [
 
 
     class DataService{
-      getCatalog(){
+      async getCatalog(){
+
+        //get data from server
+        //the await command means it will wait until the data is retrieved, then proceed.
+        //if we use await, the method becomes async and must be added above, these commands should be used every time we do asynchronous operations, such as requesting data.
+        let response = await axios.get("http://127.0.0.1:5000/api/catalog");
+        let data = response.data;
+        return data;
+
         //some instruction to
         //retrieve data from the actual server
 
-        return catalog;
+        // return catalog;
+      }
+
+      //get coupons
+      async getCoupons(){
+        let response = await axios.get("http://127.0.0.1:5000/api/coupons");
+        return response.data;
       }
     }
 

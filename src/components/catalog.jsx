@@ -7,15 +7,15 @@ const Catalog = () => {
 
     let [products, setProducts] = useState([]);
 
-    const loadCatalog = () => {
+    const loadCatalog = async () => {
         let service = new DataService(); //this is an instance
-        let data = service.getCatalog();
+        let data = await service.getCatalog();
         setProducts(data);
     };
 
     useEffect(() => {
         loadCatalog(); //this function useEffect will be automatically called when react is loading.
-    });
+    }, []); //the empty brackets at the end will ensure that there won't be an infinite loop, without it, loadCatalog will continually look at the products array and not stop.
 
 
     return(<div className='catalog'>
