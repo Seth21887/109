@@ -11,8 +11,16 @@ const Admin = () => {
     const [coupon, setCoupon] = useState({});
     const [allCoupons, setAllCoupons] = useState([]);
 
-    const saveProduct = () => {
+    const saveProduct = async () => {
         console.log("Saving product", product);
+
+        //Create a method in dataService
+        //Fix the price in product (should be a number)
+        let productCopy = {...product};
+        productCopy.price = +productCopy.price; // + forces the string to be parse to a num, another option would be productCopy.price * 1, which would always result in a num.
+        //Send product to dataService - and dataService should send it to the backend.
+        let service = new DataService();
+        await service.saveProduct(productCopy);
 
         let copy = [...allProducts];
         copy.push(product);
@@ -44,15 +52,23 @@ const Admin = () => {
         setCoupon(copy);
     };
 
-    const saveCoupon = () => {
+    const saveCoupon = async () => {
         console.log("Saving coupon", coupon);
 
+
+        //1: on dataservice: create a method that receives an object
+        //It will send that object on an axios post request
+
+        //2: Create an instance of the service
+        let service = new DataService();
+        //3: call the new method and pass coupon object
+        let couponCopy = {...coupon};
+        couponCopy.discount = parseFloat(couponCopy.discount);
+        await service.saveCoupon(couponCopy);
         //add the coupon to allCoupons array
         let copy = [...allCoupons];
         copy.push(coupon);
         setAllCoupons(copy);
-
-        //To Do: send the coupon to service --> back end.
 
     };
 
@@ -62,8 +78,15 @@ const Admin = () => {
         setAllCoupons(data);
     };
 
+    const loadProducts = async () => {
+        let service = new DataService();
+        let data = await service.getCatalog();
+        setAllProducts(data);
+    }
+
     useEffect(() => {
         loadCoupons();
+        loadProducts();
     }, []);
     
     return (
